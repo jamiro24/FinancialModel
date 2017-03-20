@@ -1,0 +1,21 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package financialmodel;
+
+/**
+ *
+ * @author s140442
+ */
+public class FinancialModel {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        System.out.println(Calc.surfaceArea(30, 94, 50, 9.0/16.0));
+    }
+    
+}
