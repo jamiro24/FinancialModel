@@ -211,7 +211,7 @@ public class Calc {
         if (coverage < 0) {
             throw new IllegalArgumentException("coverage > 0");
         }
-        return (coverage / CAMPUSSURFACE) * 100;
+        return Math.min(100, coverage / CAMPUSSURFACE * 100);
     }
 
     /**
