@@ -33,6 +33,7 @@ public class Drone {
     double maxSpeed;  //km/h
     int maxWindforce; //max allowed windforce
     int fov; //degrees
+    //add more drone properties here
 
     public Drone(String id) {
         if (id == null || id.equals("")) {
@@ -99,6 +100,9 @@ public class Drone {
 
                     case "fov":
                         drone.fov = Integer.parseInt(value);
+                        break;
+                        
+                        //add more drone properties here
                     }
                 }
             }
@@ -205,7 +209,8 @@ public class Drone {
             out.write("battery_life : " + batteryLife + System.getProperty("line.separator"));
             out.write("max_speed : " + maxSpeed + System.getProperty("line.separator"));
             out.write("max_wind_force : " + maxWindforce + System.getProperty("line.separator"));
-
+            //add more drone properties here
+            
             int count = 0;
             File file;
 
