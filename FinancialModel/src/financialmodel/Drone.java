@@ -31,10 +31,12 @@ public class Drone {
     double costBattery; //euros
     double batteryLife; //hours
     double maxSpeed;  //km/h
-    int maxWindforce; //max allowed windforce
+    int maxWindSpeed; //max allowed windforce
     int fov; //degrees
-    //add more drone properties here
+    double energy; //wH
+    double chargeTime; //hours
 
+    //add more drone properties here
     public Drone(String id) {
         if (id == null || id.equals("")) {
             throw new IllegalArgumentException("length id must be larger than 0");
@@ -44,6 +46,7 @@ public class Drone {
 
     /**
      * generates a list of drones from FILENAME
+     *
      * @return list of drones
      */
     static ArrayList<Drone> getDrones() {
@@ -94,15 +97,23 @@ public class Drone {
                         drone.maxSpeed = Double.parseDouble(value);
                         break;
 
-                    case "max_wind_force":
-                        drone.maxWindforce = Integer.parseInt(value);
+                    case "max_wind_speed":
+                        drone.maxWindSpeed = Integer.parseInt(value);
                         break;
 
                     case "fov":
                         drone.fov = Integer.parseInt(value);
                         break;
-                        
-                        //add more drone properties here
+
+                    case "energy":
+                        drone.energy = Double.parseDouble(value);
+                        break;
+
+                    case "charge_time":
+                        drone.chargeTime = Double.parseDouble(value);
+                        break;
+
+                    //add more drone properties here
                     }
                 }
             }
@@ -113,7 +124,7 @@ public class Drone {
         }
         return drones;
     }
-    
+
     /**
      * deletes this drone from the drones file
      */
@@ -149,9 +160,9 @@ public class Drone {
 
             br.close();
             out.close();
-            
+
             mkDirBackup();
-            
+
             //backup old file
             while ((file = new File("backups/backup" + count + FILENAME)).exists()) {
                 count++;
@@ -166,7 +177,7 @@ public class Drone {
             Logger.getLogger(Drone.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * saves this drone to a file
      */
@@ -208,22 +219,24 @@ public class Drone {
             out.write("cost_battery : " + costBattery + System.getProperty("line.separator"));
             out.write("battery_life : " + batteryLife + System.getProperty("line.separator"));
             out.write("max_speed : " + maxSpeed + System.getProperty("line.separator"));
-            out.write("max_wind_force : " + maxWindforce + System.getProperty("line.separator"));
+            out.write("max_wind_speed : " + maxWindSpeed + System.getProperty("line.separator"));
+            out.write("energy : " + energy + System.getProperty("line.separator"));
+            out.write("charge_time : " + chargeTime + System.getProperty("line.separator"));
             //add more drone properties here
-            
+
             int count = 0;
             File file;
 
             br.close();
             out.close();
-             
+
             mkDirBackup();
-            
+
             //backup old file
             while ((file = new File("backups/backup" + count + FILENAME)).exists()) {
                 count++;
             }
-            
+
             dronesFile.renameTo(file); //backup old file
             dronesFile.delete(); //delete the old file
 
@@ -251,7 +264,7 @@ public class Drone {
                 theDir.mkdir();
                 result = true;
             } catch (SecurityException se) {
-                
+
             }
             if (result) {
                 System.out.println("DIR created");
@@ -262,7 +275,6 @@ public class Drone {
 
     @Override
     public String toString() {
-        return "Drone{" + "name=" + name + ", id=" + id + ", costDrone=" + costDrone + ", costBattery=" + costBattery + ", batteryLife=" + batteryLife + ", maxSpeed=" + maxSpeed + ", maxWindforce=" + maxWindforce + '}';
-    }
-
+        return "Drone{" + "name=" + name + ", id=" + id + ", costDrone=" + costDrone + ", costBattery=" + costBattery + ", batteryLife=" + batteryLife + ", maxSpeed=" + maxSpeed + ", maxWindSpeed=" + maxWindSpeed + ", fov=" + fov + ", energy=" + energy + ", chargeTime=" + chargeTime + '}';
+    }   
 }

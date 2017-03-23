@@ -12,7 +12,8 @@ package financialmodel;
 public class Calc {
 
     static double DISTANCELIMIT = 150D;
-    static double CAMPUSSURFACE = 0.74D;
+    static double CAMPUSSURFACE = 0.59D;
+    static double CURVECORRECTION = 0.9D;
 
     /**
      * calculates the surface area that the camera of the drone can see at any
@@ -25,7 +26,7 @@ public class Calc {
      * looks at the ground
      * @return surface area that the camera of the drone can see at any time in
      * km^2
-     * @pre height > 0 AND 0 < fov < 360 AND 0 < angle < 90 AND aspectRatio > 0
+     * @pre height > 0 AND 0 < fov < 180 AND 0 < angle < 90 AND aspectRatio > 0
      * @post return > 0
      */
     static double surfaceArea(double height, double fov, double angle, double aspectRatio) {
@@ -35,7 +36,7 @@ public class Calc {
             throw new IllegalArgumentException("height > 0");
         }
         if (fov < 0 || fov > 360) {
-            throw new IllegalArgumentException("0 < fov < 360");
+            throw new IllegalArgumentException("0 < fov < 180");
         }
 
         if (angle < 0 || angle > 90) {
@@ -91,7 +92,7 @@ public class Calc {
      * @param aspectRatio ratio of height/width of the footage of the camera
      * @return width of the view of the front of the view of the camera on the
      * ground
-     * @pre height > 0 AND 0 < fov < 360 AND 0 < angle < 90 AND aspectRatio > 0
+     * @pre height > 0 AND 0 < fov < 180 AND 0 < angle < 90 AND aspectRatio > 0
      * @post return > 0
      */
     static double widthFar(double height, double fov, double angle, double aspectRatio) {
@@ -101,7 +102,7 @@ public class Calc {
             throw new IllegalArgumentException("height > 0");
         }
         if (fov < 0 || fov > 360) {
-            throw new IllegalArgumentException("0 < fov < 360");
+            throw new IllegalArgumentException("0 < fov < 180");
         }
 
         if (angle < 0 || angle > 90) {
@@ -155,7 +156,7 @@ public class Calc {
      * filming with an aspect ratio of aspectRatio,
      * flying at a speed of  speed,
      * during a time frame of time
-     * @pre height > 0 AND 0 < fov < 360 AND 0 < angle < 90 AND aspectRatio > 0 AND speed > 0 AND time > 0
+     * @pre height > 0 AND 0 < fov < 180 AND 0 < angle < 90 AND aspectRatio > 0 AND speed > 0 AND time > 0
      * @post return > 0
      */
     static double coverage(double height, double fov, double angle, double aspectRatio, double speed, double time) {
@@ -165,7 +166,7 @@ public class Calc {
             throw new IllegalArgumentException("height > 0");
         }
         if (fov < 0 || fov > 360) {
-            throw new IllegalArgumentException("0 < fov < 360");
+            throw new IllegalArgumentException("0 < fov < 180");
         }
 
         if (angle < 0 || angle > 90) {
@@ -188,15 +189,10 @@ public class Calc {
         double widthFar = widthFar(height, fov, angle, aspectRatio); //calculate the width of the view of the front of the view of the camera on the ground
         double moveArea = widthFar * speed * time; //calculate the viewed area at speed speed and during time time disregarding the initial surfacearea
         
-        System.out.println("surfaceArea: " + surfaceArea + " km^2");
-        System.out.println("widthFar: " + widthFar + " km");
-        System.out.println("speed: " + speed + " km/h");
-        System.out.println("time frame: " + time + " hour");
-        System.out.println("move Area: " + moveArea + " km^2");
-        System.out.println("percentage coverage: " + ((surfaceArea + moveArea) / CAMPUSSURFACE) * 100 + " %");
+        System.out.println("percentage coverage per drone: " + Math.round(10000 * (surfaceArea + CURVECORRECTION * moveArea) / CAMPUSSURFACE) / 100D + " %");
         
         //return total coverage area
-        return surfaceArea + moveArea;
+        return Math.round(10000 * (surfaceArea + CURVECORRECTION * moveArea) / CAMPUSSURFACE) / 100D;
     }
     
     /**
@@ -220,7 +216,7 @@ public class Calc {
      * @param fov horizontal field of view of the drone in degrees
      * @param aspectRatio ratio of height/width of the footage of the camera
      * @return vertical fov of the view of the drone in degrees
-     * @pre 0 < fov < 360 AND aspectRatio > 0
+     * @pre 0 < fov < 180 AND aspectRatio > 0
      * @post 0 < return < 360
      */
     static double verticalFov(double fov, double aspectRatio) {
