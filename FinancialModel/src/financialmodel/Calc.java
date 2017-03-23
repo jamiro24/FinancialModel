@@ -266,4 +266,52 @@ public class Calc {
     static double toDegrees(double radian) {
         return radian * (180 / Math.PI);
     }
+    
+    /*
+    * Gives the Cumulative value relative to location
+    */
+    static double windPercent(double windSpeed){
+        if (windSpeed < 0.9){
+            return 5.15;
+        } else if(windSpeed < 1.9){
+            return 21.47;
+        } else if(windSpeed < 2.9){
+            return 36.72;
+        } else if(windSpeed < 3.9){
+            return 55.01;
+        } else if(windSpeed < 4.9){
+            return 69.72;
+        } else if(windSpeed < 5.9){
+            return 81.17;
+        } else if(windSpeed < 6.9){
+            return 88.30;
+        } else if(windSpeed < 7.9){
+            return 93.40;
+        } else if(windSpeed < 8.9){
+            return 96.37;
+        } else if(windSpeed < 9.9){
+            return 98.12;
+        } else if(windSpeed < 10.9){
+            return 99.06;
+        } else if(windSpeed < 11.9){
+            return 99.48;
+        } else if(windSpeed < 12.9){
+            return 99.75;
+        } else if(windSpeed < 13.9){
+            return 99.87;
+        } else if(windSpeed < 14.9){
+            return 99.94;
+        } else if(windSpeed < 15.9){
+            return 99.97;
+        } else if(windSpeed < 16.9){
+            return 99.98;
+        } else if(windSpeed < 17.9){
+            return 99.99;
+        } else if(windSpeed < 18.9){
+            return 99.99;
+        } else {
+            return 100;
+        }
+        
+    }
 }
