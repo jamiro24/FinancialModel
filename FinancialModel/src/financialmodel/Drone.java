@@ -31,10 +31,12 @@ public class Drone {
     double costBattery; //euros
     double batteryLife; //hours
     double maxSpeed;  //km/h
-    int maxWindSpeed; //max allowed windforce
+    double maxWindSpeed; //max allowed windforce
     int fov; //degrees
     double energy; //wH
     double chargeTime; //hours
+    double aspectRatio; 
+    double lifeTime; //years
     boolean waterProof; 
 
     //add more drone properties here
@@ -101,7 +103,7 @@ public class Drone {
                         break;
 
                     case "max_wind_speed":
-                        drone.maxWindSpeed = Integer.parseInt(value);
+                        drone.maxWindSpeed = Double.parseDouble(value);
                         break;
 
                     case "fov":
@@ -118,7 +120,19 @@ public class Drone {
                         
                     case "water_proof":
                         drone.waterProof = Boolean.parseBoolean(value);
-
+                        break;
+                        
+                    case "aspect_ratio":
+                        drone.aspectRatio = Double.parseDouble(value);
+                        break;
+                        
+                    case "life_time":
+                        drone.lifeTime = Double.parseDouble(value);
+                        break;
+                        
+                    case "battery_life":
+                        drone.batteryLife = Double.parseDouble(value);
+                        break;
                     //add more drone properties here
                     }
                 }
@@ -217,18 +231,22 @@ public class Drone {
                     out.write(line + System.getProperty("line.separator"));
                 }
             }
-
+            String nl = System.getProperty("line.separator");
             //write info of new drone
-            out.write("% : "              + id           + System.getProperty("line.separator"));
-            out.write("name : "           + name         + System.getProperty("line.separator"));
-            out.write("cost_drone : "     + costDrone    + System.getProperty("line.separator"));
-            out.write("cost_battery : "   + costBattery  + System.getProperty("line.separator"));
-            out.write("battery_life : "   + batteryLife  + System.getProperty("line.separator"));
-            out.write("max_speed : "      + maxSpeed     + System.getProperty("line.separator"));
-            out.write("max_wind_speed : " + maxWindSpeed + System.getProperty("line.separator"));
-            out.write("energy : "         + energy       + System.getProperty("line.separator"));
-            out.write("charge_time : "    + chargeTime   + System.getProperty("line.separator"));
-            out.write("water_proof : "    + waterProof   + System.getProperty("line.seperator"));
+            out.write("% : "              + id           + nl);
+            out.write("name : "           + name         + nl);
+            out.write("cost_drone : "     + costDrone    + nl);
+            out.write("cost_battery : "   + costBattery  + nl);
+            out.write("battery_life : "   + batteryLife  + nl);
+            out.write("max_speed : "      + maxSpeed     + nl);
+            out.write("max_wind_speed : " + maxWindSpeed + nl);
+            out.write("energy : "         + energy       + nl);
+            out.write("charge_time : "    + chargeTime   + nl);
+            out.write("water_proof : "    + waterProof   + nl);
+            out.write("aspect_ratio : "   + aspectRatio  + nl);
+            out.write("life_time : "      + lifeTime     + nl);
+            out.write("fov : "            + fov          + nl);
+            out.write("%");
             //add more drone properties here
 
             int count = 0;

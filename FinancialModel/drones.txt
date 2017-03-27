@@ -1,21 +1,27 @@
-% : 2
-name : dkkd
-cost_drone : 0.0
-cost_battery : 0.0
-battery_life : 0.0
-max_speed : 0.0
-max_wind_force : 0
-% : 3
-name : adddd
-cost_drone : 0.0
-cost_battery : 0.0
-battery_life : 0.0
-max_speed : 0.0
-max_wind_force : 0
 % : 1
-name : asdf
-cost_drone : 1231.2
-cost_battery : 0.0
-battery_life : 0.0
-max_speed : 0.0
-max_wind_force : 0
+name : dji phantom 4 pro
+cost_drone : 1029.0
+cost_battery : 129.0
+battery_life : 0.47
+max_speed : 72.0
+max_wind_speed : 10.0
+water_proof : false
+energy : 89.2
+charge_time : 0.95
+life_time : 2.0
+aspect_ratio : 0.5625
+fov : 94
+% : 38214148
+name : DJI Wind 1
+cost_drone : 14950.0
+cost_battery : 184.0
+battery_life : 38.0
+max_speed : 61.2
+max_wind_speed : 12.0
+energy : 129.96
+charge_time : 1.38
+water_proof : true
+aspect_ratio : 0.5625
+life_time : 2.0
+fov : 94
+%

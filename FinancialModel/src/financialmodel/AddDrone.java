@@ -5,17 +5,46 @@
  */
 package financialmodel;
 
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author s140442
  */
 public class AddDrone extends javax.swing.JFrame {
 
+    AddResult a;
+
     /**
      * Creates new form AddDrone
      */
-    public AddDrone() {
+    public AddDrone(AddResult a) {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.a = a;
+    }
+
+    public void newDrone() {
+        Drone d = new Drone("" + Math.round(Math.random() * 100000000));
+        d.name = mName.getText();
+        d.costDrone = Double.parseDouble(mDroneCost.getText());
+        d.costBattery = Double.parseDouble(mBatteryCost.getText());
+        d.batteryLife = Double.parseDouble(mBatteryLife.getText());
+        d.maxSpeed = Double.parseDouble(mMaxSpeed.getText());
+        d.maxWindSpeed = Double.parseDouble(mMaxWindSpeed.getText());
+        d.waterProof = mWaterProof.isSelected();
+        d.energy = Double.parseDouble(mEnergy.getText());
+        d.chargeTime = Double.parseDouble(mChargeTime.getText());
+        d.lifeTime = Double.parseDouble(mLifeTime.getText());
+        d.aspectRatio = Double.parseDouble(mAspectRatio.getText());
+        d.fov = Integer.parseInt(mFOV.getText());
+
+        d.save();
+        a.done();
+
+        setVisible(false);
+        dispose();
     }
 
     /**
@@ -27,21 +56,206 @@ public class AddDrone extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        mName = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        mDroneCost = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        mBatteryCost = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        mBatteryLife = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        mMaxSpeed = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        mMaxWindSpeed = new javax.swing.JTextField();
+        mWaterProof = new javax.swing.JCheckBox();
+        jLabel7 = new javax.swing.JLabel();
+        mEnergy = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        mChargeTime = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        mLifeTime = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        mAspectRatio = new javax.swing.JTextField();
+        mFOV = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        mAdd = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        jLabel1.setText(" Name");
+
+        mName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mNameActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Drone cost (€)");
+
+        mDroneCost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mDroneCostActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Battery cost (€)");
+
+        jLabel4.setText("Battery life (hours)");
+
+        mBatteryLife.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mBatteryLifeActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Max speed");
+
+        jLabel6.setText("Max wind speed (km/h)");
+
+        mWaterProof.setText("Water proof");
+
+        jLabel7.setText("Battery energy (wH)");
+
+        jLabel8.setText("Charge time (hours)");
+
+        jLabel9.setText("Expected life time (years)");
+
+        jLabel10.setText("Aspect ratio (height / width)");
+
+        mFOV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mFOVActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Field of view (degrees)");
+
+        mAdd.setText("Add");
+        mAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(mWaterProof, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                            .addComponent(mAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(mFOV, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(mBatteryLife, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(mBatteryCost, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(mDroneCost, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(mName, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(mMaxSpeed, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(30, 30, 30)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel6)
+                                .addComponent(mMaxWindSpeed)
+                                .addComponent(jLabel7)
+                                .addComponent(mEnergy)
+                                .addComponent(jLabel8)
+                                .addComponent(mChargeTime)
+                                .addComponent(jLabel9)
+                                .addComponent(mLifeTime)
+                                .addComponent(jLabel10)
+                                .addComponent(mAspectRatio)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mMaxWindSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mDroneCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mEnergy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mBatteryCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mChargeTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mBatteryLife, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mLifeTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mMaxSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mAspectRatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(mFOV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(mWaterProof))
+                    .addComponent(mAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mNameActionPerformed
+
+    private void mDroneCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDroneCostActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mDroneCostActionPerformed
+
+    private void mBatteryLifeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mBatteryLifeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mBatteryLifeActionPerformed
+
+    private void mFOVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mFOVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mFOVActionPerformed
+
+    private void mAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAddActionPerformed
+        newDrone();
+    }//GEN-LAST:event_mAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,11 +287,40 @@ public class AddDrone extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddDrone().setVisible(true);
+                new AddDrone(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton mAdd;
+    private javax.swing.JTextField mAspectRatio;
+    private javax.swing.JTextField mBatteryCost;
+    private javax.swing.JTextField mBatteryLife;
+    private javax.swing.JTextField mChargeTime;
+    private javax.swing.JTextField mDroneCost;
+    private javax.swing.JTextField mEnergy;
+    private javax.swing.JTextField mFOV;
+    private javax.swing.JTextField mLifeTime;
+    private javax.swing.JTextField mMaxSpeed;
+    private javax.swing.JTextField mMaxWindSpeed;
+    private javax.swing.JTextField mName;
+    private javax.swing.JCheckBox mWaterProof;
     // End of variables declaration//GEN-END:variables
+}
+
+interface AddResult {
+
+    public void done();
 }

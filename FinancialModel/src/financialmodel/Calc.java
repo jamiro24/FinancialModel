@@ -153,7 +153,7 @@ public class Calc {
      * @param angle rotation along the z-axis at which the camera of the drone
      * @param aspectRatio ratio of height/width of the footage of the camera
      * @param speed speed the drones fly in km/h
-     * @param time time frame in which to measure the coverage in hours
+     * @param time time frame in which to measure the coverage in minutes
      * @return the coverage a drone has when: flying at a height of height,
      * filming with a fov of fov, filming at an angle of angle, filming with an
      * aspect ratio of aspectRatio, flying at a speed of speed, during a time
@@ -187,12 +187,14 @@ public class Calc {
         if (time < 0) {
             throw new IllegalArgumentException("time > 0");
         }
-
+        
+        time = time / 60;
+        
         double surfaceArea = surfaceArea(height, fov, angle, aspectRatio); //calculate surface area
         double widthFar = widthFar(height, fov, angle, aspectRatio); //calculate the width of the view of the front of the view of the camera on the ground
         double moveArea = widthFar * speed * time; //calculate the viewed area at speed speed and during time time disregarding the initial surfacearea
 
-        t.append("percentage coverage per drone: " + Math.round(10000 * (surfaceArea + CURVECORRECTION * moveArea) / CAMPUSSURFACE) / 100D + " %");
+        t.append("percentage coverage per drone: " + Math.round(10000 * (surfaceArea + CURVECORRECTION * moveArea) / CAMPUSSURFACE) / 100D + " %" + "\n");
 
         //return total coverage area
         return Math.round(10000 * (surfaceArea + CURVECORRECTION * moveArea) / CAMPUSSURFACE) / 100D;
@@ -323,7 +325,7 @@ public class Calc {
      * @pre d != null
      * @post 0 < /return < 100
      */
-    public double upTime(JTextArea t, Drone d) {
+    static public double upTime(JTextArea t, Drone d) {
 
         if (d == null) {
             throw new IllegalArgumentException("d was null");
@@ -337,12 +339,12 @@ public class Calc {
         } else {
             rainUpTime = RAINYDAYSPERCENTAGE;
         }
-
+        System.out.println(d.batteryLife + "\n" + d.maxSpeed + "\n" + windPercent(d.maxWindSpeed));
         double batteryTime = d.batteryLife / (d.batteryLife + RELOADTIME + AVGDISTANCE / d.maxSpeed); //percentage of the time this drone can
         double upTime = 100 * (windPercent(d.maxWindSpeed) / 100) * batteryTime * rainUpTime;
 
         if (t != null) {
-            t.append("Percentage of yearly uptime: " + upTime);
+            t.append("Percentage of yearly uptime: " + round(upTime) + " % \n");
         }
         
         return upTime;
@@ -356,13 +358,13 @@ public class Calc {
      * @pre d != null
      * @post /return > 0
      */
-    public double energyCost(Drone d) {
+    static public double energyCost(Drone d) {
 
         if (d == null) {
             throw new IllegalArgumentException("d was null");
         }
-
-        return (upTime(null, d) * d.energy * 87658.2) / (100 * d.batteryLife * KWHCOST);
+        System.out.println("uptime: " + upTime(null, d) );
+        return upTime(null, d) * (d.energy * 87658.2) / (100000 * d.batteryLife * KWHCOST);
     }
 
     /**
@@ -375,16 +377,16 @@ public class Calc {
      * @pre d != null
      * @post /return > 0
      */
-    public double amountOfBatteries(JTextArea t, Drone d, boolean print) {
+    static public double amountOfBatteries(JTextArea t, Drone d, boolean print) {
 
         if (d == null) {
             throw new IllegalArgumentException("d was null");
         }
 
-        double bAmount = Math.ceil(1 + d.chargeTime / d.batteryLife);
+        double bAmount = Math.ceil(d.chargeTime / d.batteryLife);
 
         if (print) {
-            t.append("required amount of batteries: " + bAmount);
+            t.append("required amount of extra batteries per drone: " + bAmount + "\n");
         }
 
         return bAmount;
@@ -403,31 +405,40 @@ public class Calc {
      * @param softwareCost cost of required software
      * @return cost of running a drone for 10 years
      */
-    public double cost(JTextArea t, Drone d, double droneAmount, double cameraCost, double camerasReplaced, double yearlySalary, double employeesReplaced, double lifeTime, double softwareCost) {
-        double cost = d.costDrone * droneAmount * 10 / lifeTime
-                + d.costBattery * amountOfBatteries(t, d, true)
+    static public double cost(JTextArea t, Drone d,  double cameraCost, double camerasReplaced, double yearlySalary, double employeesReplaced, double softwareCost, double coveragePercentage) {
+        
+        double droneAmount = Math.ceil(100 / coveragePercentage);
+        double cost = d.costDrone * droneAmount * 10 / d.lifeTime
+                + d.costBattery * amountOfBatteries(t, d, true) * droneAmount        
                 - cameraCost * camerasReplaced
                 - 10 * yearlySalary * employeesReplaced
                 + softwareCost
                 + energyCost(d);
-
-        t.append("Cost of energy for running the drones for 10 years: € " + d.costDrone * droneAmount * 10 / lifeTime);
-        t.append("Cost of " + amountOfBatteries(t, d, false) + "bateries: € " + d.costBattery * amountOfBatteries(t, d, false));
+        
+        t.append(droneAmount + " drones needed for 100% coverage in the given time frame" + "\n");
+        t.append("Cost of buying " + droneAmount + " drones for 10 years: € " + d.costDrone * droneAmount * 10 / d.lifeTime + "\n");
+        t.append("Drones will need to be replaced every " + droneAmount * 10 / d.lifeTime + " years \n");
+        t.append("Cost of " + droneAmount * amountOfBatteries(t, d, false) + " batteries: € " + d.costBattery * amountOfBatteries(t, d, false) * droneAmount+ "\n");
 
         if (camerasReplaced != 0) {
-            t.append("Reduced cost of " + camerasReplaced + " replaced cameras: € " + cameraCost * camerasReplaced);
+            t.append("Reduced cost of " + camerasReplaced + " replaced cameras: € " + cameraCost * camerasReplaced + "\n");
         }
 
         if (employeesReplaced != 0) {
-            t.append("Reduced cost of " + employeesReplaced + " replaced employees: € " + 10 * yearlySalary * employeesReplaced);
+            t.append("Reduced cost of " + employeesReplaced + " replaced employees: € " + 10 * yearlySalary * employeesReplaced + "\n");
         }
 
-        t.append("Cost of software: € " + softwareCost);
-        t.append("Cost of energy for running the drones for 10 years: € " + energyCost(d));
-        t.append("Total cost for 10 years: € " + cost);
-        t.append("Additional one time costs: ");
-        t.append("drone training € 1500,- per person flying the drones");
+        t.append("Cost of software: € " + softwareCost + "\n");
+        t.append("Cost of energy for running the drones for 10 years: € " + round(energyCost(d)) + "\n");
+        t.append("Total cost for 10 years: € " + round(cost) + "\n");
+        t.append("Average yearly cost: € " + round(cost/10) + "\n");
+        t.append("Additional one time costs: " + "\n");
+        t.append("drone training € 1500,- per person flying the drones" + "\n");
 
         return cost;
+    }
+    
+    static public double round(double d) {
+        return Math.round(100 * d) / 100D;
     }
 }
