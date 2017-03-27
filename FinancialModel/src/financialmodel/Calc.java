@@ -5,6 +5,8 @@
  */
 package financialmodel;
 
+import javax.swing.JTextArea;
+
 /**
  *
  * @author s140442
@@ -12,8 +14,12 @@ package financialmodel;
 public class Calc {
 
     static double DISTANCELIMIT = 150D;
-    static double CAMPUSSURFACE = 0.59D;
+    static double CAMPUSSURFACE = 0.74D;
+    static double AVGDISTANCE = 0.4D; //average distance to the recharge station
     static double CURVECORRECTION = 0.9D;
+    static double RELOADTIME = 3 / 60D; //time for a drone to land, receive a new battery and lift of again
+    static double RAINYDAYSPERCENTAGE = 170 / 365D;
+    static double KWHCOST = 0.22; //cost of 1 kwh in euros
 
     /**
      * calculates the surface area that the camera of the drone can see at any
@@ -27,7 +33,8 @@ public class Calc {
      * @return surface area that the camera of the drone can see at any time in
      * km^2
      * @pre height > 0 AND 0 < fov < 180 AND 0 < angle < 90 AND aspectRatio > 0
-     * @post return > 0
+     * @
+     * post return > 0
      */
     static double surfaceArea(double height, double fov, double angle, double aspectRatio) {
 
@@ -93,10 +100,11 @@ public class Calc {
      * @return width of the view of the front of the view of the camera on the
      * ground
      * @pre height > 0 AND 0 < fov < 180 AND 0 < angle < 90 AND aspectRatio > 0
-     * @post return > 0
+     * @
+     * post return > 0
      */
     static double widthFar(double height, double fov, double angle, double aspectRatio) {
-        
+
         //check preconditions
         if (height < 0) {
             throw new IllegalArgumentException("height > 0");
@@ -135,32 +143,27 @@ public class Calc {
     }
 
     /**
-     * calculates the coverage a drone has when:
-     * flying at a height of height,
-     * filming with a fov of fov,
-     * filming at an angle of angle,
-     * filming with an aspect ratio of aspectRatio,
-     * flying at a speed of  speed,
-     * during a time frame of time
-     * 
+     * calculates the coverage a drone has when: flying at a height of height,
+     * filming with a fov of fov, filming at an angle of angle, filming with an
+     * aspect ratio of aspectRatio, flying at a speed of speed, during a time
+     * frame of time
+     *
      * @param height flight height of drone in meters
      * @param fov horizontal field of view of the drone in degrees
      * @param angle rotation along the z-axis at which the camera of the drone
      * @param aspectRatio ratio of height/width of the footage of the camera
      * @param speed speed the drones fly in km/h
      * @param time time frame in which to measure the coverage in hours
-     * @return the coverage a drone has when:
-     * flying at a height of height,
-     * filming with a fov of fov,
-     * filming at an angle of angle,
-     * filming with an aspect ratio of aspectRatio,
-     * flying at a speed of  speed,
-     * during a time frame of time
-     * @pre height > 0 AND 0 < fov < 180 AND 0 < angle < 90 AND aspectRatio > 0 AND speed > 0 AND time > 0
+     * @return the coverage a drone has when: flying at a height of height,
+     * filming with a fov of fov, filming at an angle of angle, filming with an
+     * aspect ratio of aspectRatio, flying at a speed of speed, during a time
+     * frame of time
+     * @pre height > 0 AND 0 < fov < 180 AND 0 < angle < 90 AND aspectRatio > 0
+     * AND speed > 0 AND time > 0
      * @post return > 0
      */
-    static double coverage(double height, double fov, double angle, double aspectRatio, double speed, double time) {
-        
+    static double coverage(JTextArea t, double height, double fov, double angle, double aspectRatio, double speed, double time) {
+
         //check preconditions
         if (height < 0) {
             throw new IllegalArgumentException("height > 0");
@@ -176,11 +179,11 @@ public class Calc {
         if (aspectRatio < 0) {
             throw new IllegalArgumentException("aspectRatio > 0");
         }
-        
+
         if (speed < 0) {
             throw new IllegalArgumentException("speed > 0");
         }
-        
+
         if (time < 0) {
             throw new IllegalArgumentException("time > 0");
         }
@@ -188,26 +191,29 @@ public class Calc {
         double surfaceArea = surfaceArea(height, fov, angle, aspectRatio); //calculate surface area
         double widthFar = widthFar(height, fov, angle, aspectRatio); //calculate the width of the view of the front of the view of the camera on the ground
         double moveArea = widthFar * speed * time; //calculate the viewed area at speed speed and during time time disregarding the initial surfacearea
-        
-        System.out.println("percentage coverage per drone: " + Math.round(10000 * (surfaceArea + CURVECORRECTION * moveArea) / CAMPUSSURFACE) / 100D + " %");
-        
+
+        t.append("percentage coverage per drone: " + Math.round(10000 * (surfaceArea + CURVECORRECTION * moveArea) / CAMPUSSURFACE) / 100D + " %");
+
         //return total coverage area
         return Math.round(10000 * (surfaceArea + CURVECORRECTION * moveArea) / CAMPUSSURFACE) / 100D;
     }
-    
+
     /**
      * calculates the percentage of coverage of the campus surface
+     *
      * @param coverage area in km/2
      * @return the percentage of coverage of the campus surface
      * @pre coverage > 0
      * @post return > 0
      */
     static double percentageCoverage(double coverage) {
-        
+
         if (coverage < 0) {
             throw new IllegalArgumentException("coverage > 0");
         }
-        return Math.min(100, coverage / CAMPUSSURFACE * 100);
+
+        double percentage = Math.min(100, coverage / CAMPUSSURFACE * 100);
+        return percentage;
     }
 
     /**
@@ -262,52 +268,166 @@ public class Calc {
     static double toDegrees(double radian) {
         return radian * (180 / Math.PI);
     }
-    
+
     /*
     * Gives the Cumulative value relative to location
-    */
-    static double windPercent(double windSpeed){
-        if (windSpeed < 0.9){
+    * <i>Perfection is seldom achieved</i>
+     */
+    static double windPercent(double windSpeed) {
+        if (windSpeed < 0.9) {
             return 5.15;
-        } else if(windSpeed < 1.9){
+        } else if (windSpeed <= 2) {
             return 21.47;
-        } else if(windSpeed < 2.9){
+        } else if (windSpeed <= 3) {
             return 36.72;
-        } else if(windSpeed < 3.9){
+        } else if (windSpeed <= 4) {
             return 55.01;
-        } else if(windSpeed < 4.9){
+        } else if (windSpeed <= 5) {
             return 69.72;
-        } else if(windSpeed < 5.9){
+        } else if (windSpeed <= 6) {
             return 81.17;
-        } else if(windSpeed < 6.9){
+        } else if (windSpeed <= 7) {
             return 88.30;
-        } else if(windSpeed < 7.9){
+        } else if (windSpeed <= 8) {
             return 93.40;
-        } else if(windSpeed < 8.9){
+        } else if (windSpeed <= 9) {
             return 96.37;
-        } else if(windSpeed < 9.9){
+        } else if (windSpeed <= 10) {
             return 98.12;
-        } else if(windSpeed < 10.9){
+        } else if (windSpeed <= 11) {
             return 99.06;
-        } else if(windSpeed < 11.9){
+        } else if (windSpeed <= 12) {
             return 99.48;
-        } else if(windSpeed < 12.9){
+        } else if (windSpeed <= 13) {
             return 99.75;
-        } else if(windSpeed < 13.9){
+        } else if (windSpeed <= 14) {
             return 99.87;
-        } else if(windSpeed < 14.9){
+        } else if (windSpeed <= 15) {
             return 99.94;
-        } else if(windSpeed < 15.9){
+        } else if (windSpeed <= 16) {
             return 99.97;
-        } else if(windSpeed < 16.9){
+        } else if (windSpeed <= 17) {
             return 99.98;
-        } else if(windSpeed < 17.9){
-            return 99.99;
-        } else if(windSpeed < 18.9){
+        } else if (windSpeed <= 19) {
             return 99.99;
         } else {
             return 100;
         }
+    }
+
+    /**
+     * calculates the percentage that a drone can fly during a year
+     *
+     * @param d a drone
+     * @return percentage that a drone can fly during a year
+     * @pre d != null
+     * @post 0 < /return < 100
+     */
+    public double upTime(JTextArea t, Drone d) {
+
+        if (d == null) {
+            throw new IllegalArgumentException("d was null");
+        }
+
+        double rainUpTime;
+
+        //only non-water proof drones can fly during rainy days
+        if (d.waterProof) {
+            rainUpTime = 1D;
+        } else {
+            rainUpTime = RAINYDAYSPERCENTAGE;
+        }
+
+        double batteryTime = d.batteryLife / (d.batteryLife + RELOADTIME + AVGDISTANCE / d.maxSpeed); //percentage of the time this drone can
+        double upTime = 100 * (windPercent(d.maxWindSpeed) / 100) * batteryTime * rainUpTime;
+
+        if (t != null) {
+            t.append("Percentage of yearly uptime: " + upTime);
+        }
         
+        return upTime;
+    }
+
+    /**
+     * return the cost power for running a drone for 10 years
+     *
+     * @param d a drone
+     * @return the cost power for running a drone for 10 years
+     * @pre d != null
+     * @post /return > 0
+     */
+    public double energyCost(Drone d) {
+
+        if (d == null) {
+            throw new IllegalArgumentException("d was null");
+        }
+
+        return (upTime(null, d) * d.energy * 87658.2) / (100 * d.batteryLife * KWHCOST);
+    }
+
+    /**
+     * returns the amount of batteries that are needed to fly drone d
+     * continuously
+     *
+     * @param d a drone
+     * @return the amount of batteries that are needed to fly drone d
+     * continuously
+     * @pre d != null
+     * @post /return > 0
+     */
+    public double amountOfBatteries(JTextArea t, Drone d, boolean print) {
+
+        if (d == null) {
+            throw new IllegalArgumentException("d was null");
+        }
+
+        double bAmount = Math.ceil(1 + d.chargeTime / d.batteryLife);
+
+        if (print) {
+            t.append("required amount of batteries: " + bAmount);
+        }
+
+        return bAmount;
+    }
+
+    /**
+     * calculates the cost
+     *
+     * @param d drone
+     * @param droneAmount amount of drones
+     * @param cameraCost cost of a camera
+     * @param camerasReplaced amount of cameras replaced
+     * @param yearlySalary yearly salary of a security guard
+     * @param employeesReplaced amount of employees replaced
+     * @param lifeTime how many years a drone takes to break
+     * @param softwareCost cost of required software
+     * @return cost of running a drone for 10 years
+     */
+    public double cost(JTextArea t, Drone d, double droneAmount, double cameraCost, double camerasReplaced, double yearlySalary, double employeesReplaced, double lifeTime, double softwareCost) {
+        double cost = d.costDrone * droneAmount * 10 / lifeTime
+                + d.costBattery * amountOfBatteries(t, d, true)
+                - cameraCost * camerasReplaced
+                - 10 * yearlySalary * employeesReplaced
+                + softwareCost
+                + energyCost(d);
+
+        t.append("Cost of energy for running the drones for 10 years: € " + d.costDrone * droneAmount * 10 / lifeTime);
+        t.append("Cost of " + amountOfBatteries(t, d, false) + "bateries: € " + d.costBattery * amountOfBatteries(t, d, false));
+
+        if (camerasReplaced != 0) {
+            t.append("Reduced cost of " + camerasReplaced + " replaced cameras: € " + cameraCost * camerasReplaced);
+        }
+
+        if (employeesReplaced != 0) {
+            t.append("Reduced cost of " + employeesReplaced + " replaced employees: € " + 10 * yearlySalary * employeesReplaced);
+        }
+
+        t.append("Cost of software: € " + softwareCost);
+        t.append("Cost of energy for running the drones for 10 years: € " + energyCost(d));
+        t.append("Total cost for 10 years: € " + cost);
+        t.append("Additional one time costs: ");
+        t.append("drone training € 1500,- per person flying the drones");
+
+        return cost;
     }
 }

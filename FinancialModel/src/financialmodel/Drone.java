@@ -35,6 +35,7 @@ public class Drone {
     int fov; //degrees
     double energy; //wH
     double chargeTime; //hours
+    boolean waterProof; 
 
     //add more drone properties here
     public Drone(String id) {
@@ -42,6 +43,8 @@ public class Drone {
             throw new IllegalArgumentException("length id must be larger than 0");
         }
         this.id = id;
+        
+        waterProof = false;
     }
 
     /**
@@ -112,6 +115,9 @@ public class Drone {
                     case "charge_time":
                         drone.chargeTime = Double.parseDouble(value);
                         break;
+                        
+                    case "water_proof":
+                        drone.waterProof = Boolean.parseBoolean(value);
 
                     //add more drone properties here
                     }
@@ -213,15 +219,16 @@ public class Drone {
             }
 
             //write info of new drone
-            out.write("% : " + id + System.getProperty("line.separator"));
-            out.write("name : " + name + System.getProperty("line.separator"));
-            out.write("cost_drone : " + costDrone + System.getProperty("line.separator"));
-            out.write("cost_battery : " + costBattery + System.getProperty("line.separator"));
-            out.write("battery_life : " + batteryLife + System.getProperty("line.separator"));
-            out.write("max_speed : " + maxSpeed + System.getProperty("line.separator"));
+            out.write("% : "              + id           + System.getProperty("line.separator"));
+            out.write("name : "           + name         + System.getProperty("line.separator"));
+            out.write("cost_drone : "     + costDrone    + System.getProperty("line.separator"));
+            out.write("cost_battery : "   + costBattery  + System.getProperty("line.separator"));
+            out.write("battery_life : "   + batteryLife  + System.getProperty("line.separator"));
+            out.write("max_speed : "      + maxSpeed     + System.getProperty("line.separator"));
             out.write("max_wind_speed : " + maxWindSpeed + System.getProperty("line.separator"));
-            out.write("energy : " + energy + System.getProperty("line.separator"));
-            out.write("charge_time : " + chargeTime + System.getProperty("line.separator"));
+            out.write("energy : "         + energy       + System.getProperty("line.separator"));
+            out.write("charge_time : "    + chargeTime   + System.getProperty("line.separator"));
+            out.write("water_proof : "    + waterProof   + System.getProperty("line.seperator"));
             //add more drone properties here
 
             int count = 0;
@@ -275,6 +282,6 @@ public class Drone {
 
     @Override
     public String toString() {
-        return "Drone{" + "name=" + name + ", id=" + id + ", costDrone=" + costDrone + ", costBattery=" + costBattery + ", batteryLife=" + batteryLife + ", maxSpeed=" + maxSpeed + ", maxWindSpeed=" + maxWindSpeed + ", fov=" + fov + ", energy=" + energy + ", chargeTime=" + chargeTime + '}';
+        return name;
     }   
 }
