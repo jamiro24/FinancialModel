@@ -343,6 +343,7 @@ public class GUI extends javax.swing.JFrame {
         Drone d = drones.get(mDrones.getSelectedItem());
         
         d.printSpecs(output);
+        Calc.DISTANCELIMIT = Double.parseDouble(mViewDistance.getText());
         
         double coverage = Calc.coverage(output,
                 mHeight.getValue(),
