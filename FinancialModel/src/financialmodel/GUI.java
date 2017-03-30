@@ -110,7 +110,7 @@ public class GUI extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        jLabel1.setText("Height");
+        jLabel1.setText("Height (m)");
 
         mHeight.setMaximum(30);
         mHeight.setMinimum(5);
