@@ -440,7 +440,7 @@ public class Calc {
         t.append("Current 10 year cost for " + nEmployees + " employees: € " + nEmployees * nYearlySalary * 10 + "\n");
         t.append("Current 10 year cost for " + nCameras + " cameras: € " + nCameras * nCamCost + "\n");
         t.append("\n");
-        t.append("Total 10 year costs with drones: € " + round(round(cost) + nEmployees * nYearlySalary * 10 + nCameras * nCamCost) + "\n");
+        t.append("Total 10 year costs with drones: € " + round(round(cost) + nEmployees * nYearlySalary * 10 + nCameras * nCamCost + softwareCost) + "\n");
         t.append("Total 10 year costs without drones: € " + (nEmployees * nYearlySalary * 10 + nCameras * nCamCost) + "\n");
         t.append("\n");
         t.append("Additional one time costs: " + "\n");
