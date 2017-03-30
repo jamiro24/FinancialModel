@@ -76,10 +76,8 @@
                       <Component id="mCameraCost" alignment="0" max="32767" attributes="0"/>
                       <Component id="mAngle" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="mAvgDist" alignment="0" min="-2" pref="59" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace type="separate" pref="44" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
@@ -122,15 +120,11 @@
                                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                   <Component id="mViewDistance" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="mAvgDist" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="mHeight" min="-2" pref="44" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="mSpeed" min="-2" max="-2" attributes="0"/>
@@ -402,16 +396,6 @@
       <AuxValues>
         <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
       </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel15">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Avg Distance to charge station (km) "/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="mAvgDist">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="0.4"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
