@@ -59,7 +59,7 @@ public class Drone {
         t.append("Battery life: " + batteryLife + " hours \n");
         t.append("Charge time: " + chargeTime + " hours \n");
         t.append("Maximum speed: " + maxSpeed + " km/h \n");
-        t.append("Maximum allowed wind speed: " + maxWindSpeed + " km/h \n");
+        t.append("Maximum allowed wind speed: " + maxWindSpeed + " m/s \n");
         t.append("Field of view: " + fov + " degrees \n");
         t.append("Energy: " + energy + " wH \n");
         t.append("Waterproof: " + waterProof + n);
