@@ -59,6 +59,7 @@
                   <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="mEmployees" alignment="0" max="32767" attributes="0"/>
                       <Component id="mHeight" alignment="0" max="32767" attributes="0"/>
                       <Component id="mSpeed" alignment="0" max="32767" attributes="0"/>
                       <Component id="mTimeFrame" alignment="0" max="32767" attributes="0"/>
@@ -66,10 +67,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="mEmployees" min="-2" pref="218" max="-2" attributes="0"/>
-                              <Component id="mCalculate" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="mCalculate" min="-2" pref="230" max="-2" attributes="0"/>
                       </Group>
                       <Component id="mSalary" alignment="0" max="32767" attributes="0"/>
                       <Component id="mAmountCameras" alignment="0" max="32767" attributes="0"/>
@@ -77,7 +75,7 @@
                       <Component id="mAngle" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="separate" pref="44" max="32767" attributes="0"/>
+              <EmptySpace pref="44" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
