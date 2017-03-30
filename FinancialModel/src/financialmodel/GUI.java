@@ -191,7 +191,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel14.setText("Output");
 
-        jLabel15.setText("Average distance to charge station");
+        jLabel15.setText("Average distance to charge station (km)");
 
         mAvgDistance.setText("0.4");
 
