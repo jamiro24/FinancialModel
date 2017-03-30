@@ -48,6 +48,8 @@ public class Drone {
         
         waterProof = false;
     }
+    
+    
 
     /**
      * generates a list of drones from FILENAME

@@ -158,7 +158,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel2.setText("Tilt angle (degrees)");
 
-        mAngle.setMaximum(90);
+        mAngle.setMaximum(45);
         mAngle.setValue(20);
         mAngle.setAutoscrolls(true);
 
