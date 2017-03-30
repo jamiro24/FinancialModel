@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -35,9 +36,9 @@ public class Drone {
     int fov; //degrees
     double energy; //wH
     double chargeTime; //hours
-    double aspectRatio; 
+    double aspectRatio;
     double lifeTime; //years
-    boolean waterProof; 
+    boolean waterProof;
 
     //add more drone properties here
     public Drone(String id) {
@@ -45,11 +46,25 @@ public class Drone {
             throw new IllegalArgumentException("length id must be larger than 0");
         }
         this.id = id;
-        
+
         waterProof = false;
     }
-    
-    
+
+    public void printSpecs(JTextArea t) {
+        String n = "\n";
+        t.append("Name: " + name + n);
+        t.append("Drone cost: € " + costDrone + n);
+        t.append("Expected life time: " + lifeTime + " years \n");
+        t.append("Batttery cost: € " + costBattery + n);
+        t.append("Battery life: " + batteryLife + " hours \n");
+        t.append("Charge time: " + chargeTime + " hours \n");
+        t.append("Maximum speed: " + maxSpeed + " km/h \n");
+        t.append("Maximum allowed wind speed: " + maxWindSpeed + " km/h \n");
+        t.append("Field of view: " + fov + " degrees \n");
+        t.append("Energy: " + energy + " wH \n");
+        t.append("Waterproof: " + waterProof + n);
+        t.append(n);
+    }
 
     /**
      * generates a list of drones from FILENAME
@@ -119,19 +134,19 @@ public class Drone {
                     case "charge_time":
                         drone.chargeTime = Double.parseDouble(value);
                         break;
-                        
+
                     case "water_proof":
                         drone.waterProof = Boolean.parseBoolean(value);
                         break;
-                        
+
                     case "aspect_ratio":
                         drone.aspectRatio = Double.parseDouble(value);
                         break;
-                        
+
                     case "life_time":
                         drone.lifeTime = Double.parseDouble(value);
                         break;
-                        
+
                     case "battery_life":
                         drone.batteryLife = Double.parseDouble(value);
                         break;
@@ -235,19 +250,19 @@ public class Drone {
             }
             String nl = System.getProperty("line.separator");
             //write info of new drone
-            out.write("% : "              + id           + nl);
-            out.write("name : "           + name         + nl);
-            out.write("cost_drone : "     + costDrone    + nl);
-            out.write("cost_battery : "   + costBattery  + nl);
-            out.write("battery_life : "   + batteryLife  + nl);
-            out.write("max_speed : "      + maxSpeed     + nl);
+            out.write("% : " + id + nl);
+            out.write("name : " + name + nl);
+            out.write("cost_drone : " + costDrone + nl);
+            out.write("cost_battery : " + costBattery + nl);
+            out.write("battery_life : " + batteryLife + nl);
+            out.write("max_speed : " + maxSpeed + nl);
             out.write("max_wind_speed : " + maxWindSpeed + nl);
-            out.write("energy : "         + energy       + nl);
-            out.write("charge_time : "    + chargeTime   + nl);
-            out.write("water_proof : "    + waterProof   + nl);
-            out.write("aspect_ratio : "   + aspectRatio  + nl);
-            out.write("life_time : "      + lifeTime     + nl);
-            out.write("fov : "            + fov          + nl);
+            out.write("energy : " + energy + nl);
+            out.write("charge_time : " + chargeTime + nl);
+            out.write("water_proof : " + waterProof + nl);
+            out.write("aspect_ratio : " + aspectRatio + nl);
+            out.write("life_time : " + lifeTime + nl);
+            out.write("fov : " + fov + nl);
             out.write("%");
             //add more drone properties here
 
@@ -303,5 +318,5 @@ public class Drone {
     @Override
     public String toString() {
         return name;
-    }   
+    }
 }

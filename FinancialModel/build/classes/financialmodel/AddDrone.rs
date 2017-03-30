@@ -1,2 +1,0 @@
-financialmodel.AddDrone
-financialmodel.AddResult

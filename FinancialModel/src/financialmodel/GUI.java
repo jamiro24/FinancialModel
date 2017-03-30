@@ -341,6 +341,9 @@ public class GUI extends javax.swing.JFrame {
         output.setText("");
 
         Drone d = drones.get(mDrones.getSelectedItem());
+        
+        d.printSpecs(output);
+        
         double coverage = Calc.coverage(output,
                 mHeight.getValue(),
                 d.fov,
