@@ -24,17 +24,4 @@ water_proof : true
 aspect_ratio : 0.5625
 life_time : 2.0
 fov : 94
-% : 29126687
-name : HexH2O pro V2
-cost_drone : 6090.0
-cost_battery : 154.0
-battery_life : 0.5
-max_speed : 56.0
-max_wind_speed : 11.1
-energy : 177.6
-charge_time : 0.95
-water_proof : true
-aspect_ratio : 0.5625
-life_time : 2.0
-fov : 94
 %
