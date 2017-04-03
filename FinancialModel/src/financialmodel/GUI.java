@@ -7,6 +7,7 @@ package financialmodel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -316,14 +317,14 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mAngle, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mCameraCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mCameraAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mCameraCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -372,6 +373,15 @@ public class GUI extends javax.swing.JFrame {
 
     private void mCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCalculateActionPerformed
 
+        if (Double.parseDouble(mEmployeeAmount.getText()) < Double.parseDouble(mEmployeesReplaced.getText())) {
+            JOptionPane.showMessageDialog(this, "You can't replace more employees then you have");
+            return;
+        }
+        
+        if (Double.parseDouble(mCameraAmount.getText()) < Double.parseDouble(mAmountCameras.getText())) {
+            JOptionPane.showMessageDialog(this, "You can't replace more cameras then you have");
+            return;
+        }
         output.setText("");
 
         Drone d = drones.get(mDrones.getSelectedItem());
