@@ -40,7 +40,7 @@ public class GUI extends javax.swing.JFrame {
 
         mAngle.setPaintLabels(true);
         mAngle.setMajorTickSpacing(15);
-        mAngle.setMinorTickSpacing(3);
+        mAngle.setMinorTickSpacing(1);
         mAngle.setPaintTicks(true);
 
     }
@@ -80,7 +80,7 @@ public class GUI extends javax.swing.JFrame {
         mAmountCameras = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         mSalary = new javax.swing.JTextField();
-        mEmployees = new javax.swing.JTextField();
+        mEmployeesReplaced = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         mSoftwareCosts = new javax.swing.JTextField();
@@ -88,6 +88,10 @@ public class GUI extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         jLabel15 = new javax.swing.JLabel();
         mAvgDistance = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        mCameraAmount = new javax.swing.JTextField();
+        xdlabel = new javax.swing.JLabel();
+        mEmployeeAmount = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -181,7 +185,7 @@ public class GUI extends javax.swing.JFrame {
 
         mSalary.setText("50000");
 
-        mEmployees.setText("0");
+        mEmployeesReplaced.setText("0");
 
         jLabel12.setText("Employees replaced");
 
@@ -194,6 +198,19 @@ public class GUI extends javax.swing.JFrame {
         jLabel15.setText("Average distance to charge station (km)");
 
         mAvgDistance.setText("0.4");
+
+        jLabel16.setText("Amount of cameras");
+
+        mCameraAmount.setText("50");
+        mCameraAmount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCameraAmountActionPerformed(evt);
+            }
+        });
+
+        xdlabel.setText("Amount of employees (at the same time)");
+
+        mEmployeeAmount.setText("3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -229,28 +246,30 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(jLabel15)
                     .addComponent(mAvgDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(xdlabel)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(mEmployees, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(mHeight, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mCalculate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mEmployeeAmount, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(mCameraAmount, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(mEmployeesReplaced, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(mHeight, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                         .addComponent(mSpeed, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(mTimeFrame, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(mSoftwareCosts, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(mCalculate, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(mSalary, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(mAmountCameras, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(mCameraCost, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(mAngle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGap(18, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
@@ -281,7 +300,7 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mAvgDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,6 +317,10 @@ public class GUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mAngle, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mCameraAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mCameraCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,23 +332,23 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(12, 12, 12)
+                                .addComponent(xdlabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(mEmployeeAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(mEmployeesReplaced, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mSoftwareCosts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(44, 44, 44)
-                                        .addComponent(jLabel9)
-                                        .addGap(44, 44, 44))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(mCalculate)
-                                        .addGap(25, 25, 25))))))
+                                .addGap(13, 13, 13)
+                                .addComponent(mCalculate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9)
+                                .addGap(44, 44, 44))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -356,6 +379,8 @@ public class GUI extends javax.swing.JFrame {
         d.printSpecs(output);
         Calc.DISTANCELIMIT = Double.parseDouble(mViewDistance.getText());
         Calc.AVGDISTANCE = Double.parseDouble(mAvgDistance.getText());
+        Calc.nEmployees = Double.parseDouble(mEmployeeAmount.getText());
+        Calc.nCameras = Double.parseDouble(mCameraAmount.getText());
         double coverage = Calc.coverage(output,
                 mHeight.getValue(),
                 d.fov,
@@ -371,7 +396,7 @@ public class GUI extends javax.swing.JFrame {
                 Double.parseDouble(mCameraCost.getText()),
                 Double.parseDouble(mAmountCameras.getText()),
                 Double.parseDouble(mSalary.getText()),
-                Double.parseDouble(mEmployees.getText()),
+                Double.parseDouble(mEmployeesReplaced.getText()),
                 Double.parseDouble(mSoftwareCosts.getText()),
                 coverage);
     }//GEN-LAST:event_mCalculateActionPerformed
@@ -405,6 +430,10 @@ public class GUI extends javax.swing.JFrame {
 
         }).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void mCameraAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCameraAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mCameraAmountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -452,6 +481,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -466,10 +496,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JSlider mAngle;
     private javax.swing.JTextField mAvgDistance;
     private javax.swing.JButton mCalculate;
+    private javax.swing.JTextField mCameraAmount;
     private javax.swing.JTextField mCameraCost;
     private javax.swing.JTextField mCampusArea;
     private javax.swing.JComboBox<String> mDrones;
-    private javax.swing.JTextField mEmployees;
+    private javax.swing.JTextField mEmployeeAmount;
+    private javax.swing.JTextField mEmployeesReplaced;
     private javax.swing.JSlider mHeight;
     private javax.swing.JTextField mSalary;
     private javax.swing.JTextField mSoftwareCosts;
@@ -477,5 +509,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField mTimeFrame;
     private javax.swing.JTextField mViewDistance;
     private javax.swing.JTextArea output;
+    private javax.swing.JLabel xdlabel;
     // End of variables declaration//GEN-END:variables
 }
