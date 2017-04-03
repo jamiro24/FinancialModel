@@ -362,13 +362,13 @@ public class Calc {
      * @pre d != null
      * @post /return > 0
      */
-    static public double energyCost(Drone d) {
+    static public double energyCost(Drone d, double amount) {
 
         if (d == null) {
             throw new IllegalArgumentException("d was null");
         }
         System.out.println("uptime: " + upTime(null, d));
-        return upTime(null, d) * (d.energy * 87658.2) / (100000 * d.batteryLife * KWHCOST);
+        return amount * upTime(null, d) * (d.energy * 87658.2) / (100000 * d.batteryLife * KWHCOST);
     }
 
     /**
@@ -417,7 +417,7 @@ public class Calc {
                 - cameraCost * camerasReplaced
                 - 10 * yearlySalary * employeesReplaced
                 + softwareCost
-                + energyCost(d);
+                + energyCost(d, droneAmount);
 
         t.append(droneAmount + " Drones needed for 100% coverage in the given time frame" + "\n");
         t.append("Cost of buying " + droneAmount + " drones for 10 years: € " + d.costDrone * droneAmount * 10 / d.lifeTime + "\n");
@@ -433,7 +433,7 @@ public class Calc {
         }
 
         t.append("Cost of software: € " + softwareCost + "\n");
-        t.append("Cost of energy for running the drones for 10 years: € " + round(energyCost(d)) + "\n");
+        t.append("Cost of energy for running the drones for 10 years: € " + round(energyCost(d, droneAmount)) + "\n");
         t.append("Total additional costs for 10 years: € " + round(cost) + "\n");
         t.append("Average yearly additional costs: € " + round(cost / 10) + "\n");
         t.append("\n");
