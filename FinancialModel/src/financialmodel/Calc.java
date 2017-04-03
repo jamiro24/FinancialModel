@@ -396,6 +396,10 @@ public class Calc {
         return bAmount;
     }
 
+    static public double cameraPowerCost(double wattage, double amount) {
+        return (KWHCOST * amount * wattage * 87658.2 * 3600) / 3600000;
+    }
+
     /**
      * calculates the cost
      *
@@ -409,15 +413,18 @@ public class Calc {
      * @param softwareCost cost of required software
      * @return cost of running a drone for 10 years
      */
-    static public double cost(JTextArea t, Drone d, double cameraCost, double camerasReplaced, double yearlySalary, double employeesReplaced, double softwareCost, double coveragePercentage) {
+    static public double cost(JTextArea t, Drone d, double cameraCost, double camerasReplaced, double yearlySalary, double employeesReplaced, double softwareCost, double coveragePercentage, double camWattage) {
 
         double droneAmount = Math.ceil(100 / coveragePercentage);
+        double camPowerCostDrones = cameraPowerCost(camWattage, nCameras - camerasReplaced);
+        double camPowerCostNoDrones = cameraPowerCost(camWattage, nCameras);
         double cost = d.costDrone * droneAmount * 10 / d.lifeTime
                 + d.costBattery * amountOfBatteries(t, d, true) * droneAmount
                 - cameraCost * camerasReplaced
                 - 10 * yearlySalary * employeesReplaced
                 + softwareCost
-                + energyCost(d, droneAmount);
+                + energyCost(d, droneAmount)
+                + camPowerCostDrones;
 
         t.append(droneAmount + " Drones needed for 100% coverage in the given time frame" + "\n");
         t.append("Cost of buying " + droneAmount + " drones for 10 years: € " + d.costDrone * droneAmount * 10 / d.lifeTime + "\n");
@@ -434,6 +441,8 @@ public class Calc {
 
         t.append("Cost of software: € " + softwareCost + "\n");
         t.append("Cost of energy for running the drones for 10 years: € " + round(energyCost(d, droneAmount)) + "\n");
+        t.append("Cost of energy for running " + (nCameras - camerasReplaced) + " cameras for 10 years: €" + round(camPowerCostDrones )+ "\n");
+        t.append("Cost of energy for running " + (nCameras) + " cameras (no drones) for 10 years: €" + round(camPowerCostNoDrones) + "\n");
         t.append("Total additional costs for 10 years: € " + round(cost) + "\n");
         t.append("Average yearly additional costs: € " + round(cost / 10) + "\n");
         t.append("\n");
@@ -441,7 +450,7 @@ public class Calc {
         t.append("Current 10 year cost for " + nCameras + " cameras: € " + nCameras * nCamCost + "\n");
         t.append("\n");
         t.append("Total 10 year costs with drones: € " + round(round(cost) + nEmployees * nYearlySalary * 10 + nCameras * nCamCost + softwareCost) + "\n");
-        t.append("Total 10 year costs without drones: € " + (nEmployees * nYearlySalary * 10 + nCameras * nCamCost) + "\n");
+        t.append("Total 10 year costs without drones: € " + (nEmployees * nYearlySalary * 10 + nCameras * nCamCost + round(camPowerCostNoDrones)) + "\n");
         t.append("\n");
         t.append("Additional one time costs: " + "\n");
         t.append("drone training € 1500,- per person flying the drones" + "\n");
