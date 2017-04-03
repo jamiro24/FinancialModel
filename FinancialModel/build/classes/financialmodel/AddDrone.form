@@ -31,7 +31,7 @@
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="mWaterProof" min="-2" pref="152" max="-2" attributes="0"/>
-                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <EmptySpace pref="39" max="32767" attributes="0"/>
                           <Component id="mAdd" min="-2" pref="152" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -184,7 +184,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Max wind speed (km/h)"/>
+        <Property name="text" type="java.lang.String" value="Max wind speed (m/s)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="mMaxWindSpeed">
